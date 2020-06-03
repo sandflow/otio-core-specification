@@ -772,7 +772,8 @@ This method returns `"LinearTimeWarp"`.
     "time_scalar" : {
       "type" : "number"
     }
-  }
+  },
+  "require" : ["OTIO_SCHEMA"]
 }
 ```
 
@@ -1535,8 +1536,7 @@ Number equal to the ratio of `numerator` over `denominator`.
     "numerator" : { "type": "integer" },
     "denominator" : { "type": "integer" }
   },
-  "required" : ["numerator", "denominator"]
-}
+  "required" : ["numerator", "denominator", "OTIO_SCHEMA"]
 ```
 
 ### Boolean
@@ -1678,7 +1678,8 @@ This method returns `self.end - self.start`.
       },
       "start" : { "$ref": "#/definitions/RationalTime" },
       "end" : { "$ref": "#/definitions/RationalTime" }
-    }
+    },
+    "required" : ["OTIO_SCHEMA"]
   }
 ```
 
