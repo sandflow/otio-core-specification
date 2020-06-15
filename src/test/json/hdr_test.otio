@@ -1,0 +1,564 @@
+{
+    "OTIO_SCHEMA": "Timeline.1",
+    "metadata": {},
+    "name": "NETFLIX_HDR_TEST_SEQUENCE",
+    "global_start_time": null,
+    "tracks": {
+        "OTIO_SCHEMA": "Stack.1",
+        "metadata": {},
+        "name": "tracks",
+        "source_range": null,
+        "effects": [],
+        "markers": [],
+        "children": [
+            {
+                "OTIO_SCHEMA": "Track.1",
+                "metadata": {},
+                "name": "V",
+                "source_range": {
+                    "OTIO_SCHEMA": "TimeRange.1",
+                    "duration": {
+                        "OTIO_SCHEMA": "RationalTime.1",
+                        "rate": 23.976023976023979,
+                        "value": 1016.0
+                    },
+                    "start_time": {
+                        "OTIO_SCHEMA": "RationalTime.1",
+                        "rate": 23.976023976023979,
+                        "value": -86400.0
+                    }
+                },
+                "effects": [],
+                "markers": [],
+                "children": [
+                    {
+                        "OTIO_SCHEMA": "Clip.1",
+                        "metadata": {
+                            "cmx_3600": {
+                                "comments": [
+                                    "IMAGE, FRAMEFLEX",
+                                    "SOURCE FILE: ELLEN_DEGENERES_RELATABLE_SPECIAL_RELATABLE_81040620_00003413_00005113_EN_2"
+                                ],
+                                "reel": "ELLEN_DE"
+                            }
+                        },
+                        "name": "ELLEN_DEGENERES_RELATABLE_SPECIAL_RELATABLE_81040620_00003413_00005113_EN_2",
+                        "source_range": {
+                            "OTIO_SCHEMA": "TimeRange.1",
+                            "duration": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 28.0
+                            },
+                            "start_time": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 0.0
+                            }
+                        },
+                        "effects": [],
+                        "markers": [],
+                        "media_reference": {
+                            "OTIO_SCHEMA": "MissingReference.1",
+                            "metadata": {},
+                            "name": "",
+                            "available_range": null
+                        }
+                    },
+                    {
+                        "OTIO_SCHEMA": "Clip.1",
+                        "metadata": {
+                            "cmx_3600": {
+                                "comments": [
+                                    "IMAGE, FRAMEFLEX",
+                                    "SAPPHIRE STYLIZE, S_KALEIDO",
+                                    "SOURCE FILE: ILIZA_SHLESINGER_UNVEILED_81073633_00003818_00005911_EN_2"
+                                ],
+                                "reel": "ILIZA_SH"
+                            }
+                        },
+                        "name": "ILIZA_SHLESINGER_UNVEILED_81073633_00003818_00005911_EN_2",
+                        "source_range": {
+                            "OTIO_SCHEMA": "TimeRange.1",
+                            "duration": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 67.0
+                            },
+                            "start_time": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 231.0
+                            }
+                        },
+                        "effects": [],
+                        "markers": [],
+                        "media_reference": {
+                            "OTIO_SCHEMA": "MissingReference.1",
+                            "metadata": {},
+                            "name": "",
+                            "available_range": null
+                        }
+                    },
+                    {
+                        "OTIO_SCHEMA": "Clip.1",
+                        "metadata": {
+                            "cmx_3600": {
+                                "comments": [
+                                    "IMAGE, FRAMEFLEX",
+                                    "AVX2 EFFECT, RESIZE",
+                                    "SOURCE FILE: 6_UNDERGROUND_81001887_00022511_00070501_EN_6"
+                                ],
+                                "reel": "6_UNDERG"
+                            }
+                        },
+                        "name": "6_UNDERGROUND_81001887_00022511_00070501_EN_6",
+                        "source_range": {
+                            "OTIO_SCHEMA": "TimeRange.1",
+                            "duration": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 109.0
+                            },
+                            "start_time": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 4650.0
+                            }
+                        },
+                        "effects": [],
+                        "markers": [],
+                        "media_reference": {
+                            "OTIO_SCHEMA": "MissingReference.1",
+                            "metadata": {},
+                            "name": "",
+                            "available_range": null
+                        }
+                    },
+                    {
+                        "OTIO_SCHEMA": "Clip.1",
+                        "metadata": {
+                            "cmx_3600": {
+                                "comments": [
+                                    "SOURCE FILE: MONARCA_SEASON_1_THE_PRUNING_80211631_00033915_00034914_ES_6"
+                                ],
+                                "reel": "MONARCA_"
+                            }
+                        },
+                        "name": "MONARCA_SEASON_1_THE_PRUNING_80211631_00033915_00034914_ES_6",
+                        "source_range": {
+                            "OTIO_SCHEMA": "TimeRange.1",
+                            "duration": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 85.0
+                            },
+                            "start_time": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 5271.0
+                            }
+                        },
+                        "effects": [],
+                        "markers": [],
+                        "media_reference": {
+                            "OTIO_SCHEMA": "MissingReference.1",
+                            "metadata": {},
+                            "name": "",
+                            "available_range": null
+                        }
+                    },
+                    {
+                        "OTIO_SCHEMA": "Clip.1",
+                        "metadata": {
+                            "cmx_3600": {
+                                "reel": "BL"
+                            }
+                        },
+                        "name": "000005",
+                        "source_range": {
+                            "OTIO_SCHEMA": "TimeRange.1",
+                            "duration": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 89.0
+                            },
+                            "start_time": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 0.0
+                            }
+                        },
+                        "effects": [],
+                        "markers": [],
+                        "media_reference": {
+                            "OTIO_SCHEMA": "GeneratorReference.1",
+                            "metadata": {},
+                            "name": "",
+                            "available_range": null,
+                            "generator_kind": "black",
+                            "parameters": {}
+                        }
+                    },
+                    {
+                        "OTIO_SCHEMA": "Transition.1",
+                        "metadata": {
+                            "cmx_3600": {
+                                "comments": [
+                                    "BLEND, DISSOLVE",
+                                    "IMAGE, FRAMEFLEX",
+                                    "SOURCE FILE: (NULL)"
+                                ],
+                                "reel": "ABSTRACT",
+                                "transition": "D"
+                            }
+                        },
+                        "name": "ABSTRACT_THE_ART_OF_DESIGN_SEASON_2_RUTH_CARTER_COSTUME_DESIGN_80237095_00392619_00394818_EN_2",
+                        "in_offset": {
+                            "OTIO_SCHEMA": "RationalTime.1",
+                            "rate": 23.976023976023979,
+                            "value": 89.0
+                        },
+                        "out_offset": {
+                            "OTIO_SCHEMA": "RationalTime.1",
+                            "rate": 23.976023976023979,
+                            "value": 90.0
+                        },
+                        "transition_type": "SMPTE_Dissolve"
+                    },
+                    {
+                        "OTIO_SCHEMA": "Clip.1",
+                        "metadata": {
+                            "cmx_3600": {
+                                "comments": [
+                                    "BLEND, DISSOLVE",
+                                    "IMAGE, FRAMEFLEX",
+                                    "SOURCE FILE: (NULL)"
+                                ],
+                                "reel": "ABSTRACT",
+                                "transition": "D"
+                            }
+                        },
+                        "name": "ABSTRACT_THE_ART_OF_DESIGN_SEASON_2_RUTH_CARTER_COSTUME_DESIGN_80237095_00392619_00394818_EN_2",
+                        "source_range": {
+                            "OTIO_SCHEMA": "TimeRange.1",
+                            "duration": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 90.0
+                            },
+                            "start_time": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 89.0
+                            }
+                        },
+                        "effects": [],
+                        "markers": [],
+                        "media_reference": {
+                            "OTIO_SCHEMA": "MissingReference.1",
+                            "metadata": {},
+                            "name": "",
+                            "available_range": null
+                        }
+                    },
+                    {
+                        "OTIO_SCHEMA": "Gap.1",
+                        "metadata": {},
+                        "name": "",
+                        "source_range": {
+                            "OTIO_SCHEMA": "TimeRange.1",
+                            "duration": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 76.0
+                            },
+                            "start_time": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 0.0
+                            }
+                        },
+                        "effects": [],
+                        "markers": []
+                    },
+                    {
+                        "OTIO_SCHEMA": "Clip.1",
+                        "metadata": {
+                            "cmx_3600": {
+                                "comments": [
+                                    "TIMEWARP EFFECT AT SEQUENCE TC 01:00:22:16.",
+                                    "IMAGE, FRAMEFLEX",
+                                    "SOURCE FILE: CHEER_SEASON_1_FULL_OUT_81048631_00141816_00145418_EN_6"
+                                ],
+                                "reel": "CHEER_SE"
+                            }
+                        },
+                        "name": "CHEER_SEASON_1_FULL_OUT_81048631_00141816_00145418_EN_6",
+                        "source_range": {
+                            "OTIO_SCHEMA": "TimeRange.1",
+                            "duration": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 101.0
+                            },
+                            "start_time": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 20647.0
+                            }
+                        },
+                        "effects": [
+                            {
+                                "OTIO_SCHEMA": "LinearTimeWarp.1",
+                                "metadata": {},
+                                "name": "",
+                                "effect_name": "LinearTimeWarp",
+                                "time_scalar": 0.7090416666666666
+                            }
+                        ],
+                        "markers": [],
+                        "media_reference": {
+                            "OTIO_SCHEMA": "MissingReference.1",
+                            "metadata": {},
+                            "name": "",
+                            "available_range": null
+                        }
+                    },
+                    {
+                        "OTIO_SCHEMA": "Clip.1",
+                        "metadata": {
+                            "cmx_3600": {
+                                "comments": [
+                                    "TIMEWARP EFFECT AT SEQUENCE TC 01:00:26:21.",
+                                    "IMAGE, FRAMEFLEX",
+                                    "SOURCE FILE: LA_CASA_DE_LAS_FLORES_SEASON_2_ROSE_SYMB_UNITY_80226587_00000110_00002622_ES_2"
+                                ],
+                                "reel": "LA_CASA_"
+                            }
+                        },
+                        "name": "LA_CASA_DE_LAS_FLORES_SEASON_2_ROSE_SYMB_UNITY_80226587_00000110_00002622_ES_2",
+                        "source_range": {
+                            "OTIO_SCHEMA": "TimeRange.1",
+                            "duration": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 101.0
+                            },
+                            "start_time": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 134.0
+                            }
+                        },
+                        "effects": [
+                            {
+                                "OTIO_SCHEMA": "LinearTimeWarp.1",
+                                "metadata": {},
+                                "name": "",
+                                "effect_name": "LinearTimeWarp",
+                                "time_scalar": -1.001
+                            }
+                        ],
+                        "markers": [],
+                        "media_reference": {
+                            "OTIO_SCHEMA": "MissingReference.1",
+                            "metadata": {},
+                            "name": "",
+                            "available_range": null
+                        }
+                    },
+                    {
+                        "OTIO_SCHEMA": "Clip.1",
+                        "metadata": {
+                            "cmx_3600": {
+                                "comments": [
+                                    "IMAGE, FRAMEFLEX",
+                                    "SOURCE FILE: ABSTRACT_THE_ART_OF_DESIGN_SEASON_2_NERI_OXMAN_BIOARCHITECTURE_80237094_00151814_00152512_EN_2"
+                                ],
+                                "reel": "ABSTRACT"
+                            }
+                        },
+                        "name": "ABSTRACT_THE_ART_OF_DESIGN_SEASON_2_NERI_OXMAN_BIOARCHITECTURE_80237094_00151814_00152512_EN_2",
+                        "source_range": {
+                            "OTIO_SCHEMA": "TimeRange.1",
+                            "duration": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 36.0
+                            },
+                            "start_time": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 2.0
+                            }
+                        },
+                        "effects": [],
+                        "markers": [],
+                        "media_reference": {
+                            "OTIO_SCHEMA": "MissingReference.1",
+                            "metadata": {},
+                            "name": "",
+                            "available_range": null
+                        }
+                    },
+                    {
+                        "OTIO_SCHEMA": "Clip.1",
+                        "metadata": {
+                            "cmx_3600": {
+                                "comments": [
+                                    "IMAGE, FRAMEFLEX",
+                                    "SOURCE FILE: MONARCA_SEASON_1_THE_PRUNING_80211631_00090519_00091703_ES_6"
+                                ],
+                                "reel": "MONARCA_"
+                            }
+                        },
+                        "name": "MONARCA_SEASON_1_THE_PRUNING_80211631_00090519_00091703_ES_6",
+                        "source_range": {
+                            "OTIO_SCHEMA": "TimeRange.1",
+                            "duration": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 38.0
+                            },
+                            "start_time": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 13232.0
+                            }
+                        },
+                        "effects": [
+                            {
+                                "OTIO_SCHEMA": "FreezeFrame.1",
+                                "metadata": {},
+                                "name": "",
+                                "effect_name": "FreezeFrame",
+                                "time_scalar": 0.0
+                            }
+                        ],
+                        "markers": [],
+                        "media_reference": {
+                            "OTIO_SCHEMA": "MissingReference.1",
+                            "metadata": {},
+                            "name": "",
+                            "available_range": null
+                        }
+                    },
+                    {
+                        "OTIO_SCHEMA": "Clip.1",
+                        "metadata": {
+                            "cmx_3600": {
+                                "comments": [
+                                    "TIMEWARP EFFECT AT SEQUENCE TC 01:00:34:04.",
+                                    "IMAGE, FRAMEFLEX",
+                                    "SOURCE FILE: MONARCA_SEASON_1_THE_PRUNING_80211631_00090519_00091703_ES_6"
+                                ],
+                                "reel": "MONARCA_"
+                            }
+                        },
+                        "name": "MONARCA_SEASON_1_THE_PRUNING_80211631_00090519_00091703_ES_6",
+                        "source_range": {
+                            "OTIO_SCHEMA": "TimeRange.1",
+                            "duration": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 72.0
+                            },
+                            "start_time": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 13233.0
+                            }
+                        },
+                        "effects": [
+                            {
+                                "OTIO_SCHEMA": "LinearTimeWarp.1",
+                                "metadata": {},
+                                "name": "",
+                                "effect_name": "LinearTimeWarp",
+                                "time_scalar": 0.7716041666666667
+                            }
+                        ],
+                        "markers": [],
+                        "media_reference": {
+                            "OTIO_SCHEMA": "MissingReference.1",
+                            "metadata": {},
+                            "name": "",
+                            "available_range": null
+                        }
+                    },
+                    {
+                        "OTIO_SCHEMA": "Clip.1",
+                        "metadata": {
+                            "cmx_3600": {
+                                "comments": [
+                                    "IMAGE, FRAMEFLEX",
+                                    "AVX2 EFFECT, 3DWARP",
+                                    "SOURCE FILE: KNIGHTS_OF_SIDONIA_SEASON_2_CONFLICT_80032384_00002221_00011103_JA_2"
+                                ],
+                                "reel": "KNIGHTS_"
+                            }
+                        },
+                        "name": "KNIGHTS_OF_SIDONIA_SEASON_2_CONFLICT_80032384_00002221_00011103_JA_2",
+                        "source_range": {
+                            "OTIO_SCHEMA": "TimeRange.1",
+                            "duration": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 62.0
+                            },
+                            "start_time": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 707.0
+                            }
+                        },
+                        "effects": [],
+                        "markers": [],
+                        "media_reference": {
+                            "OTIO_SCHEMA": "MissingReference.1",
+                            "metadata": {},
+                            "name": "",
+                            "available_range": null
+                        }
+                    },
+                    {
+                        "OTIO_SCHEMA": "Clip.1",
+                        "metadata": {
+                            "cmx_3600": {
+                                "comments": [
+                                    "IMAGE, FRAMEFLEX",
+                                    "SOURCE FILE: KNIGHTS_OF_SIDONIA_SEASON_2_CONFLICT_80032384_00002221_00011103_JA_2"
+                                ],
+                                "reel": "KNIGHTS_"
+                            }
+                        },
+                        "name": "KNIGHTS_OF_SIDONIA_SEASON_2_CONFLICT_80032384_00002221_00011103_JA_2",
+                        "source_range": {
+                            "OTIO_SCHEMA": "TimeRange.1",
+                            "duration": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 62.0
+                            },
+                            "start_time": {
+                                "OTIO_SCHEMA": "RationalTime.1",
+                                "rate": 23.976023976023979,
+                                "value": 1024.0
+                            }
+                        },
+                        "effects": [],
+                        "markers": [],
+                        "media_reference": {
+                            "OTIO_SCHEMA": "MissingReference.1",
+                            "metadata": {},
+                            "name": "",
+                            "available_range": null
+                        }
+                    }
+                ],
+                "kind": "Video"
+            }
+        ]
+    }
+}
