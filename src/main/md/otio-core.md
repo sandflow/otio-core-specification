@@ -24,7 +24,7 @@ skinparam linetype ortho
 skinparam padding 5
 hide circle
 
-package otio_v1 <<Folder>> {
+package OTIO <<Folder>> {
 
 class SerializableCollection [[#object-model-SerializableCollection]]
 SerializableCollection *-- SerializableObject
@@ -124,8 +124,6 @@ interface SerializableObject {
 @enduml
 ```
 
-_NOTE_: The `schema_name()` and `schema_version()` method of the reference implementation are serialization-specific. `schema_name()` can be derived from the class name and `schema_version()` can be derived from the version of the specifications defining the class.
-
 #### JSON Schema
 
 ```json
@@ -148,7 +146,7 @@ hide empty members
 skinparam classAttributeIconSize 0
 
 abstract class SerializableObjectWithMetadata {
-  name: String = String()
+  name: String = ""
   metadata : JSONObject = JSONObject()
 }
 
@@ -256,7 +254,7 @@ hide empty members
 skinparam classAttributeIconSize 0
 
 class Timeline {
-  global_start_time : RationalTime = RationalTime()
+  global_start_time : RationalTime
   --
   range() : TimeRange
   activeChildren(offset: RationalTime) : ActiveComposable [*] {ordered}
@@ -310,7 +308,7 @@ This method returns `tracks.activeDescendants(offset)`;
     },
     "name" : { "$ref": "#/definitions/NullableString" },
     "metadata" : { "$ref": "#/definitions/JSONObject" },
-    "global_start_time" : { "$ref": "#/definitions/RationalTime" },
+    "global_start_time" : { "$ref": "#/definitions/NullableRationalTime" },
     "tracks" : { "$ref": "#/definitions/Stack" }
   },
   "required" : ["OTIO_SCHEMA"],
@@ -415,7 +413,7 @@ skinparam classAttributeIconSize 0
 Composition <|-- Track
 
 class Track {
-  kind : URI
+  kind : String = "Video"
   --
   composition_kind() : CompositionKind
 }
@@ -427,10 +425,10 @@ class Track {
 
 This property uniquely identifies the kind of essence produced by the `Track`.
 
-The following are common values:
+The following are example values:
 
-* `Video`
-* `Audio`
+* `"Video"`
+* `"Audio"`
 
 _EDITOR'S NOTE_: is a `track` always have only of a single kind?
 
@@ -605,7 +603,7 @@ This property specifies `Marker` objects associated with the object.
 
 This method returns returns `true`.
 
-#### available_range()
+##### available_range()
 
 This method returns the temporal range over which media is available.
 
@@ -652,7 +650,7 @@ hide empty members
 skinparam classAttributeIconSize 0
 
 class Effect {
-  effect_name : String
+  effect_name : String = ""
 }
 
 @enduml
@@ -808,7 +806,7 @@ class FreezeFrame {
 
 ###### time_scalar
 
-The property shall be eqaul to 0.
+The property shall be equal to 0.
 
 #### JSON Schema
 
@@ -958,9 +956,9 @@ skinparam linetype ortho
 Composable <|-- Transition
 
 abstract class Transition {
-  in_offset: RationalTime = 0
-  out_offset: RationalTime = 0
-  transition_type: String = String()
+  in_offset: RationalTime
+  out_offset: RationalTime
+  transition_type: String = ""
   parameters: JSONObject = JSONObject()
   --
   overlapping(): Boolean
@@ -1023,8 +1021,8 @@ This method returns the interval `[0, self.out_offset + self.in_offset)`.
     },
     "name" : { "$ref": "#/definitions/NullableString" },
     "metadata" : { "$ref": "#/definitions/JSONObject" },
-    "in_offset" : { "$ref": "#/definitions/RationalTime" },
-    "out_offset" : { "$ref": "#/definitions/RationalTime" },
+    "in_offset" : { "$ref": "#/definitions/NullableRationalTime" },
+    "out_offset" : { "$ref": "#/definitions/NullableRationalTime" },
     "transition_type" : { "$ref": "#/definitions/NullableString" },
     "parameters" : {
       "type" : "object"
@@ -1055,7 +1053,7 @@ abstract Item
 Item <|-- Gap
 
 class Gap {
-  duration : RationalTime = 0
+  duration : RationalTime
   --
   visible() : Boolean
   available_range() : TimeRange
@@ -1102,7 +1100,7 @@ The method returns the interval `[0, duration)`.
       "items" : {"$ref": "#/definitions/Effect"}
     },
     "source_range" : { "$ref": "#/definitions/TimeRange" },
-    "duration" : { "$ref": "#/definitions/RationalTime" }
+    "duration" : { "$ref": "#/definitions/NullableRationalTime" }
   },
   "required" : ["OTIO_SCHEMA"],
   "additionalProperties": false
@@ -1297,7 +1295,7 @@ abstract class MediaReference
 MediaReference <|-- GeneratorReference
 
 class GeneratorReference {
-  generator_kind: String = String()
+  generator_kind: String = ""
   parameters: JSONObject = JSONObject()
 }
 
@@ -1403,8 +1401,8 @@ MediaReference <|-- ImageSequenceReference
 
 class ImageSequenceReference {
   target_url_base: URL = URL()
-  name_prefix: String = String()
-  name_suffix: String = String()
+  name_prefix: String = ""
+  name_suffix: String = ""
   start_frame: Integer = 1
   frame_step: Integer = 1
   rate: Float = 1
@@ -1632,8 +1630,6 @@ skinparam classAttributeIconSize 0
 class RationalTime <<datatype>> {
   value : Float = 0
   rate : Float = 1
-  --
-  RationalTime()
 }
 
 @enduml
@@ -1645,22 +1641,24 @@ Temporal value equal to the product of `value` and `rate`.
 
 ```json
 "RationalTime" : {
+  "type": "object",
+  "properties": {
+    "OTIO_SCHEMA" : {
+      "const": "RationalTime.1"
+    },
+    "rate" : { "$ref": "#/definitions/NullableFloat" },
+    "value" : { "$ref": "#/definitions/NullableFloat" }
+  },
+  "required" : ["OTIO_SCHEMA"],
+  "additionalProperties": false
+}
+```
+
+```json
+"NullableRationalTime" : {
   "anyOf" : [
-    {
-    "type": "object",
-    "properties": {
-      "OTIO_SCHEMA" : {
-        "const": "RationalTime.1"
-      },
-      "rate" : { "$ref": "#/definitions/NullableFloat" },
-      "value" : { "$ref": "#/definitions/NullableFloat" }
-    },
-    "required" : ["OTIO_SCHEMA"],
-    "additionalProperties": false
-    },
-    {
-      "type" : "null"
-    }
+    { "$ref": "#/definitions/RationalTime" },
+    { "type" : "null" }
   ]
 }
 ```
@@ -1692,14 +1690,10 @@ UTF-8 string.
 hide empty members
 skinparam classAttributeIconSize 0
 
-class String <<datatype>> {
-  String()
-}
+class String <<datatype>>
 
 @enduml
 ```
-
-This constructor `String()` initializes the instance to an empty string.
 
 #### JSON Schema
 
@@ -1723,12 +1717,16 @@ The value `null` exists for compatibility with legacy files and should not be wr
 hide empty members
 skinparam classAttributeIconSize 0
 
-class URI <<datatype>>
+class URI <<datatype>> {
+  URI()
+}
 
 @enduml
 ```
 
 URI as specified in RFC 3986.
+
+The `URI()` constructor initializes the URI to an empty relative reference (`""`).
 
 #### JSON Schema
 
@@ -1826,7 +1824,7 @@ class JSONObject <<datatype>> {
 @enduml
 ```
 
-The `JSONObject()` constructor initializes the instance to the empty object.
+The `JSONObject()` constructor initializes the instance to an empty object.
 
 #### JSON Schema
 
@@ -1848,8 +1846,8 @@ hide empty members
 skinparam classAttributeIconSize 0
 
 class TimeRange <<datatype>> {
-  start : RationalTime = RationalTime()
-  end : RationalTime = RationalTime()
+  start : RationalTime
+  end : RationalTime
   --
   <<constructor>> TimeRange(start : RationalTime, end : RationalTime)
   <<constructor>> TimeRange(end : RationalTime)
@@ -1891,8 +1889,8 @@ This method returns `self.end - self.start`.
           "OTIO_SCHEMA" : {
             "const": "TimeRange.1"
           },
-          "duration" : { "$ref": "#/definitions/RationalTime" },
-          "start_time" : { "$ref": "#/definitions/RationalTime" }
+          "duration" : { "$ref": "#/definitions/NullableRationalTime" },
+          "start_time" : { "$ref": "#/definitions/NullableRationalTime" }
         },
         "required" : ["OTIO_SCHEMA"],
         "additionalProperties": false
