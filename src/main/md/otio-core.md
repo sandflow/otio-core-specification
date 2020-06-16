@@ -220,7 +220,13 @@ This property defines the timeline of the object.
   "type": "object",
   "properties" : {
     "OTIO_SCHEMA" : {
-      "const": "SerializableCollection.1"
+      "anyOf" : [
+        { "const": "SerializableCollection.1" },
+        {
+          "const": "SerializeableCollection.1",
+          "deprecated": true
+        }
+      ]
     },
     "name" : { "$ref": "#/definitions/NullableString" },
     "metadata" : { "$ref": "#/definitions/JSONObject" },
@@ -442,8 +448,8 @@ The method returns `CompositionKind::Track`.
       "anyOf" : [
         { "const": "Track.1" },
         {
-          "deprecated": true,
-          "const": "Sequence.1"
+          "const": "Sequence.1",
+          "deprecated": true
         }
       ]
     },
@@ -876,6 +882,15 @@ Color of the `Marker` object.
 
 ```json
 "Marker" : {
+    "anyOf" : [
+    { "$ref": "#/definitions/Marker.1" },
+    { "$ref": "#/definitions/Marker.2" }
+  ]
+}
+```
+
+```json
+"Marker.2" : {
   "type": "object",
   "properties": {
     "OTIO_SCHEMA" : {
@@ -893,6 +908,29 @@ Color of the `Marker` object.
   "additionalProperties": false
 }
 ```
+
+```json
+"Marker.1" : {
+  "deprecated" : true,
+  "type": "object",
+  "properties": {
+    "OTIO_SCHEMA" : {
+      "const": "Marker.1"
+    },
+    "name" : { "$ref": "#/definitions/NullableString" },
+    "metadata" : { "$ref": "#/definitions/JSONObject" },
+    "range" : { "$ref": "#/definitions/TimeRange" },
+    "color" : {
+      "type": "string",
+      "enum": ["PINK", "RED", "ORANGE", "YELLOW", "GREEN", "CYAN", "BLUE", "PURPLE", "MAGENTA", "BLACK", "WHITE"]
+    }
+  },
+  "required" : ["OTIO_SCHEMA"],
+  "additionalProperties": false
+}
+```
+
+_NOTE_: The `range` property in the deprecated `Marker.1` serialization corresponds to the `marked_range` property in the data model.
 
 ### Transition {#object-model-Transition}
 
@@ -1045,7 +1083,13 @@ The method returns the interval `[0, duration)`.
   "type": "object",
   "properties": {
     "OTIO_SCHEMA" : {
-      "const": "Gap.1"
+      "anyOf" : [
+        { "const": "Gap.1" },
+        {
+          "const": "Filler.1",
+          "deprecated": true
+        }
+      ]
     },
     "name" : { "$ref": "#/definitions/NullableString" },
     "metadata" : { "$ref": "#/definitions/JSONObject" },
