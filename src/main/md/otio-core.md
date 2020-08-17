@@ -14,7 +14,7 @@ print_background: false
 
 ## Introduction (informative)
 
-This document specifies the core OTIO data model, as illustrated below.
+This document specifies the core OTIO data model, which is summarized below.
 
 ```puml
 @startuml
@@ -25,77 +25,99 @@ skinparam linetype ortho
 skinparam padding 5
 hide circle
 
-package OTIO <<Folder>> {
+class Timeline [[#object-model-Timeline]]
 
-class SerializableObject [[#object-model-SerializableObject]]
+class Clip [[#object-model-Clip]]
+class Gap [[#object-model-Gap]]
 
-SerializableObject <|-down- SerializableCollection
-SerializableObject <|-down- Timeline
-SerializableObject <|-down- Composable
-SerializableObject <|-down- Marker
-SerializableObject <|-down- Effect
-SerializableObject <|-down- MediaReference
 
-class SerializableCollection [[#object-model-SerializableCollection]]
-abstract class Composable [[#object-model-Composable]]
-class TimeEffect [[#object-model-TimeEffect]]
-abstract class Item [[#object-model-Item]]
-class Transition [[#object-model-Transition]]
+class Composition [[#object-model-Composition]]
+class Composable [[#object-model-Composable]]
 
 together {
-  class Clip [[#object-model-Clip]]
-  class Gap [[#object-model-Gap]]
-  abstract class Composition [[#object-model-Composition]]
+  class Transition [[#object-model-Transition]]
+  class Item [[#object-model-Item]]
 }
+
 
 class Effect [[#object-model-Effect]]
 class Marker [[#object-model-Marker]]
 
-class LinearTimeWarp [[#object-model-LinearTimeWarp]]
-class FreezeFrame [[#object-model-FreezeFrame]]
 
-class Timeline [[#object-model-Timeline]]
 class Stack [[#object-model-Stack]]
 class Track [[#object-model-Track]]
+class MediaReference [[#object-model-MediaReference]]
 
-SerializableCollection *-- SerializableObject
+Timeline *-- Stack
 
-Stack --* Timeline
+Track --|> Composition
+Stack --|> Composition
 
-Composable <|-- Item
-Composable <|-- Transition
+Composable <|--- Item
+Composable <|--- Transition
 
-Item <|-- Clip
-Item <|-- Gap
-Item <|-- Composition
-
-Marker --* Item
-
-Effect --* Item
-Effect <|-- TimeEffect
-
-TimeEffect <|-- LinearTimeWarp
-LinearTimeWarp <|-- FreezeFrame
-
-Composition <|-- Track
-Composition <|-- Stack
 Composition *-- Composable
+
+Item <|--- Clip
+Item <|--- Gap
+Composition ---|> Item
+
+Item *-- Marker
+Item *-- Effect
 
 Clip *-- MediaReference
 
-abstract class MediaReference [[#object-model-MediaReference]]
+@enduml
+```
 
+All OTIO classes derive directly or indirectly from [`SerializableObject`](#object-model-SerializableObject) and multiple instances of OTIO classes can be collected as a [`SerializableCollection`](#object-model-SerializableCollection).
+
+Subclasses of [`MediaReference`](#object-model-MediaReference) are defined to handle specific kinds of reference to media:
+
+```puml
+@startuml
+hide empty members
+hide circle
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam padding 5
+hide circle
+
+class MediaReference [[#object-model-MediaReference]]
 class GeneratorReference [[#object-model-GeneratorReference]]
 class MissingReference [[#object-model-MissingReference]]
 class ExternalReference [[#object-model-ExternalReference]]
 class ImageSequenceReference [[#object-model-ImageSequenceReference]]
 
-MediaReference <|-down- ExternalReference
-MediaReference <|-down- GeneratorReference
-MediaReference <|-down- MissingReference
-MediaReference <|-down- ImageSequenceReference
 
-}
+MediaReference <|-- ExternalReference
+MediaReference <|-- GeneratorReference
+MediaReference <|-- MissingReference
+MediaReference <|-- ImageSequenceReference
+
+@enduml
+```
+
+Similarly, subclasses of [`Effect`](#object-model-Effect) are defined to handle specific kinds of audio-visual effects:
+
+```puml
+@startuml
+hide empty members
+hide circle
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam padding 5
+hide circle
+
+class Effect [[#object-model-Effect]]
+
+class TimeEffect [[#object-model-TimeEffect]]
+class LinearTimeWarp [[#object-model-LinearTimeWarp]]
+class FreezeFrame [[#object-model-FreezeFrame]]
+
+Effect <|-- TimeEffect
+TimeEffect <|-- LinearTimeWarp
+LinearTimeWarp <|-- FreezeFrame
 
 @enduml
 ```
@@ -111,7 +133,32 @@ IETF, BCP 14, Key words for use in RFCs to Indicate Requirement Levels (url: htt
 
 All sections are normative, unless otherwise indicated.
 
-The model diagrams are specified using UML as specified in OMG UML. Class names in italic indicate that the class is abstract and no serialization or instantiation exist.
+The model diagrams are specified using UML as specified in OMG UML. The diagram below illustrates the notation most commonly used in this specification.
+
+```puml
+@startuml
+hide empty members
+hide circle
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam padding 5
+hide circle
+
+class ConcreteParent
+
+abstract class AbstractClass
+note right: An italicized class name indicates that the class is abstract
+
+class ConcreteChild
+
+ConcreteParent  *-- "children\n0..*" ConcreteChild
+note on link: ConcreteParent contains zero or more ConcreteChild instances under the children property
+
+AbstractClass <|-- ConcreteParent
+note on link: ConcreteParent derives from AbstractClass
+
+@enduml
+```
 
 The key words MAY, SHALL, SHALL NOT, SHOULD, and SHOULD NOT in this document are to be interpreted as described in IETF BCP 14.
 
