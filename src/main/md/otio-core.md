@@ -26,21 +26,16 @@ hide circle
 
 package OTIO <<Folder>> {
 
+class SerializableObject [[#object-model-SerializableObject]]
+
+SerializableObject <|-down- SerializableCollection
+SerializableObject <|-down- Timeline
+SerializableObject <|-down- Composable
+SerializableObject <|-down- Marker
+SerializableObject <|-down- Effect
+SerializableObject <|-down- MediaReference
+
 class SerializableCollection [[#object-model-SerializableCollection]]
-SerializableCollection *-- SerializableObject
-SerializableObjectWithMetadata <|-down- SerializableCollection
-
-
-SerializableObject <|-down- SerializableObjectWithMetadata
-
-SerializableObjectWithMetadata <|-down- Timeline
-SerializableObjectWithMetadata <|-down- Composable
-SerializableObjectWithMetadata <|-down- Marker
-SerializableObjectWithMetadata <|-down- Effect
-SerializableObjectWithMetadata <|-down- MediaReference
-
-abstract class SerializableObjectWithMetadata [[#object-model-SerializableObjectWithMetadata]]
-interface SerializableObject [[#object-model-SerializableObject]]
 abstract class Composable [[#object-model-Composable]]
 class TimeEffect [[#object-model-TimeEffect]]
 abstract class Item [[#object-model-Item]]
@@ -62,6 +57,8 @@ class Timeline [[#object-model-Timeline]]
 class Stack [[#object-model-Stack]]
 class Track [[#object-model-Track]]
 
+SerializableCollection *-- SerializableObject
+
 Stack --* Timeline
 
 Composable <|-- Item
@@ -72,7 +69,6 @@ Item <|-- Gap
 Item <|-- Composition
 
 Marker --* Item
-
 
 Effect --* Item
 Effect <|-- TimeEffect
@@ -113,39 +109,14 @@ Superclass for all classes whose instances can be serialized.
 
 #### Model
 
-```puml
-@startuml
-hide empty members
-skinparam classAttributeIconSize 0
-
-interface SerializableObject {
-}
-
-@enduml
-```
-
-#### JSON Schema
-
-```json
-"SerializableObject": {
-  "anyOf" : [
-    { "$ref": "#/definitions/SerializableObjectWithMetadata" }
-  ]
-}
-```
-
-### SerializableObjectWithMetadata {#object-model-SerializableObjectWithMetadata}
-
-#### Model
-
-#### Diagram
+##### Diagram
 
 ```puml
 @startuml
 hide empty members
 skinparam classAttributeIconSize 0
 
-abstract class SerializableObjectWithMetadata {
+class SerializableObject {
   name: String = ""
   metadata : JSONObject = JSONObject()
 }
@@ -166,7 +137,7 @@ This property contains information that further describes the object.
 #### JSON Schema
 
 ```json
-"SerializableObjectWithMetadata": {
+"SerializableObject": {
   "anyOf" : [
     { "$ref": "#/definitions/Composable" },
     { "$ref": "#/definitions/Marker" },
@@ -200,9 +171,9 @@ skinparam classAttributeIconSize 0
 class SerializableCollection {
 }
 
-abstract class SerializableObjectWithMetadata
+abstract class SerializableObject
 
-SerializableCollection o-- "children\r0..*" SerializableObjectWithMetadata
+SerializableCollection o-- "children\r0..*" SerializableObject
 
 @enduml
 ```
