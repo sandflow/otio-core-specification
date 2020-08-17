@@ -425,7 +425,7 @@ class Track {
 
 This property uniquely identifies the kind of essence produced by the `Track`.
 
-The following are example values:
+The following are two values are defined:
 
 * `"Video"`
 * `"Audio"`
