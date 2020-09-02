@@ -1784,6 +1784,8 @@ A `JSONObject` instance represents a single `object` as defined at www.json.org.
 A `JSONObject` instance and any of its descendent `object` values may be an instance of
 [`SerializableObject`](#object-model-SerializableObject).
 
+_EXAMPLE_: A `JSONObject` instance can contain `RationalTime` and `TimeRange` instances,
+
 #### Processing
 
 Unless it is a descendent of an instance of [`SerializableObject`](#object-model-SerializableObject), a processor shall interpret a
