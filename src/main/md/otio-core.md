@@ -1744,7 +1744,7 @@ Integer in the range [- 2<sup>63</sup>, 2<sup>63</sup> - 1].
   }
 ```
 
-### Float
+### Float {#object-model-Float}
 
 #### Model
 
@@ -1779,7 +1779,15 @@ Double (binary64) floating point number as defined in IEEE 754.
 
 #### General
 
-A JSON Object as defined at www.json.org.
+A `JSONObject` instance represents a single `object` as defined at www.json.org.
+
+A `JSONObject` instance and any of its descendent `object` values may be an instance of
+[`SerializableObject`](#object-model-SerializableObject).
+
+#### Processing
+
+Unless it is a descendent of an instance of [`SerializableObject`](#object-model-SerializableObject), a processor shall interpret a
+`number` value as a [`Float`](#object-model-Float).
 
 #### Model
 
