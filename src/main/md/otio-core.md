@@ -717,7 +717,7 @@ class TimeEffect
 TimeEffect <|-- LinearTimeWarp
 
 class LinearTimeWarp {
-  time_scalar: Float = 1
+  time_scalar: Double = 1
 }
 
 @enduml
@@ -741,7 +741,7 @@ _EXAMPLE_: `timescalar = 2.0` means double speed, and `timescalar = 0.5` means h
     "name" : { "$ref": "#/definitions/NullableString" },
     "metadata" : { "$ref": "#/definitions/MetadataObject" },
     "effect_name" : { "$ref": "#/definitions/NullableString" },
-    "time_scalar" : { "$ref": "#/definitions/NullableFloat" }
+    "time_scalar" : { "$ref": "#/definitions/NullableDouble" }
   },
   "require" : ["OTIO_SCHEMA"],
   "additionalProperties": false
@@ -769,7 +769,7 @@ class LinearTimeWarp
 LinearTimeWarp <|-- FreezeFrame
 
 class FreezeFrame {
-  /time_scalar: Float = 0
+  /time_scalar: Double = 0
 }
 
 @enduml
@@ -1376,7 +1376,7 @@ class ImageSequenceReference {
   name_suffix: String = ""
   start_frame: Integer = 1
   frame_step: Integer = 1
-  rate: Float = 1
+  rate: Double = 1
   frame_zero_padding: Integer = 0
   missing_frame_policy: MissingFramePolicy = error
 }
@@ -1441,7 +1441,7 @@ This property allows hinting about how a consuming app should behave if an image
     "name_suffix" : { "$ref": "#/definitions/NullableString" },
     "start_frame" : { "$ref": "#/definitions/NullableInteger" },
     "frame_step" : { "$ref": "#/definitions/NullableInteger" },
-    "rate" : { "$ref": "#/definitions/NullableFloat" },
+    "rate" : { "$ref": "#/definitions/NullableDouble" },
     "frame_zero_padding" : { "$ref": "#/definitions/NullableInteger" },
     "missing_frame_policy" : {
       "type": "string",
@@ -1599,8 +1599,8 @@ hide empty members
 skinparam classAttributeIconSize 0
 
 class RationalTime <<datatype>> {
-  value : Float = 0
-  rate : Float = 1
+  value : Double = 0
+  rate : Double = 1
 }
 
 @enduml
@@ -1617,8 +1617,8 @@ Temporal value equal to the product of `value` and `rate`.
     "OTIO_SCHEMA" : {
       "const": "RationalTime.1"
     },
-    "rate" : { "$ref": "#/definitions/NullableFloat" },
-    "value" : { "$ref": "#/definitions/NullableFloat" }
+    "rate" : { "$ref": "#/definitions/NullableDouble" },
+    "value" : { "$ref": "#/definitions/NullableDouble" }
   },
   "required" : ["OTIO_SCHEMA"],
   "additionalProperties": false
@@ -1744,7 +1744,7 @@ Integer in the range [- 2<sup>63</sup>, 2<sup>63</sup> - 1].
   }
 ```
 
-### Float {#object-model-Float}
+### Double {#object-model-Double}
 
 #### Model
 
@@ -1753,7 +1753,7 @@ Integer in the range [- 2<sup>63</sup>, 2<sup>63</sup> - 1].
 hide empty members
 skinparam classAttributeIconSize 0
 
-class Float <<datatype>>
+class Double <<datatype>>
 
 @enduml
 ```
@@ -1763,7 +1763,7 @@ Double (binary64) floating point number as defined in IEEE 754.
 #### JSON Schema
 
 ```json
-  "NullableFloat" : {
+  "NullableDouble" : {
     "anyOf" : [
       {
         "type": "number"
@@ -1789,7 +1789,7 @@ _EXAMPLE_: A `MetadataObject` instance can contain `RationalTime` and `TimeRange
 #### Processing
 
 Unless it is a descendent of an instance of [`SerializableObject`](#object-model-SerializableObject), a processor shall interpret a
-`number` value as a [`Float`](#object-model-Float).
+`number` value as a [`Double`](#object-model-Double).
 
 #### Model
 
