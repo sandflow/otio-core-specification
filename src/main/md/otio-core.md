@@ -14,90 +14,153 @@ print_background: false
 
 ## Introduction (informative)
 
-This document specifies the core OTIO data model, as illustrated below.
+This document specifies the core OTIO data model, which is summarized below.
 
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 skinparam linetype ortho
 skinparam padding 5
 hide circle
 
-package OTIO <<Folder>> {
+class Timeline [[#object-model-Timeline]]
 
-class SerializableObject [[#object-model-SerializableObject]]
+class Clip [[#object-model-Clip]]
+class Gap [[#object-model-Gap]]
 
-SerializableObject <|-down- SerializableCollection
-SerializableObject <|-down- Timeline
-SerializableObject <|-down- Composable
-SerializableObject <|-down- Marker
-SerializableObject <|-down- Effect
-SerializableObject <|-down- MediaReference
 
-class SerializableCollection [[#object-model-SerializableCollection]]
-abstract class Composable [[#object-model-Composable]]
-class TimeEffect [[#object-model-TimeEffect]]
-abstract class Item [[#object-model-Item]]
-class Transition [[#object-model-Transition]]
+class Composition [[#object-model-Composition]]
+class Composable [[#object-model-Composable]]
 
 together {
-  class Clip [[#object-model-Clip]]
-  class Gap [[#object-model-Gap]]
-  abstract class Composition [[#object-model-Composition]]
+  class Transition [[#object-model-Transition]]
+  class Item [[#object-model-Item]]
 }
+
 
 class Effect [[#object-model-Effect]]
 class Marker [[#object-model-Marker]]
 
-class LinearTimeWarp [[#object-model-LinearTimeWarp]]
-class FreezeFrame [[#object-model-FreezeFrame]]
 
-class Timeline [[#object-model-Timeline]]
 class Stack [[#object-model-Stack]]
 class Track [[#object-model-Track]]
+class MediaReference [[#object-model-MediaReference]]
 
-SerializableCollection *-- SerializableObject
+Timeline *-- Stack
 
-Stack --* Timeline
+Track --|> Composition
+Stack --|> Composition
 
-Composable <|-- Item
-Composable <|-- Transition
+Composable <|--- Item
+Composable <|--- Transition
 
-Item <|-- Clip
-Item <|-- Gap
-Item <|-- Composition
-
-Marker --* Item
-
-Effect --* Item
-Effect <|-- TimeEffect
-
-TimeEffect <|-- LinearTimeWarp
-LinearTimeWarp <|-- FreezeFrame
-
-Composition <|-- Track
-Composition <|-- Stack
 Composition *-- Composable
+
+Item <|--- Clip
+Item <|--- Gap
+Composition ---|> Item
+
+Item *-- Marker
+Item *-- Effect
 
 Clip *-- MediaReference
 
-abstract class MediaReference [[#object-model-MediaReference]]
+@enduml
+```
 
+All OTIO classes derive directly or indirectly from [`SerializableObject`](#object-model-SerializableObject) and multiple instances of OTIO classes can be collected as a [`SerializableCollection`](#object-model-SerializableCollection).
+
+Subclasses of [`MediaReference`](#object-model-MediaReference) are defined to handle specific kinds of reference to media:
+
+```puml
+@startuml
+hide empty members
+hide circle
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam padding 5
+hide circle
+
+class MediaReference [[#object-model-MediaReference]]
 class GeneratorReference [[#object-model-GeneratorReference]]
 class MissingReference [[#object-model-MissingReference]]
 class ExternalReference [[#object-model-ExternalReference]]
 class ImageSequenceReference [[#object-model-ImageSequenceReference]]
 
-MediaReference <|-down- ExternalReference
-MediaReference <|-down- GeneratorReference
-MediaReference <|-down- MissingReference
-MediaReference <|-down- ImageSequenceReference
 
-}
+MediaReference <|-- ExternalReference
+MediaReference <|-- GeneratorReference
+MediaReference <|-- MissingReference
+MediaReference <|-- ImageSequenceReference
 
 @enduml
 ```
+
+Similarly, subclasses of [`Effect`](#object-model-Effect) are defined to handle specific kinds of audio-visual effects:
+
+```puml
+@startuml
+hide empty members
+hide circle
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam padding 5
+hide circle
+
+class Effect [[#object-model-Effect]]
+
+class TimeEffect [[#object-model-TimeEffect]]
+class LinearTimeWarp [[#object-model-LinearTimeWarp]]
+class FreezeFrame [[#object-model-FreezeFrame]]
+
+Effect <|-- TimeEffect
+TimeEffect <|-- LinearTimeWarp
+LinearTimeWarp <|-- FreezeFrame
+
+@enduml
+```
+
+## References
+
+OMG, Unified Modeling Language Specification Version 2.5.1 (url: https://www.omg.org/spec/UML/2.5.1)
+(https://tools.ietf.org/rfc/bcp/bcp14.txt)
+
+IETF, BCP 14, Key words for use in RFCs to Indicate Requirement Levels (url: https://tools.ietf.org/rfc/bcp/bcp14.txt)
+
+## Conventions
+
+All sections are normative, unless otherwise indicated.
+
+The model diagrams are specified using UML as specified in OMG UML. The diagram below illustrates the notation most commonly used in this specification.
+
+```puml
+@startuml
+hide empty members
+hide circle
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam padding 5
+hide circle
+
+class ConcreteParent
+
+abstract class AbstractClass
+note right: An italicized class name indicates that the class is abstract
+
+class ConcreteChild
+
+ConcreteParent  *-- "children\n0..*" ConcreteChild
+note on link: ConcreteParent contains zero or more ConcreteChild instances under the children property
+
+AbstractClass <|-- ConcreteParent
+note on link: ConcreteParent derives from AbstractClass
+
+@enduml
+```
+
+The key words MAY, SHALL, SHALL NOT, SHOULD, and SHOULD NOT in this document are to be interpreted as described in IETF BCP 14.
 
 ## Object Model
 
@@ -114,6 +177,7 @@ Superclass for all classes whose instances can be serialized.
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
 class SerializableObject {
@@ -166,14 +230,15 @@ _EXAMPLES_: A bin of media, a bundle of timelines in a single file. Specifically
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
 class SerializableCollection {
 }
 
-abstract class SerializableObject
+SerializableObject <|-- SerializableCollection
 
-SerializableCollection o-- "children\r0..*" SerializableObject
+SerializableCollection *-- "children\r0..*" SerializableObject
 
 @enduml
 ```
@@ -222,6 +287,7 @@ A `Timeline` object represents a complete project. The media timeline of the obj
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
 class Timeline {
@@ -233,7 +299,7 @@ class Timeline {
   activeDescendants(offset: RationalTime) : ActiveComposable [*] {ordered}
 }
 
-class Timeline
+SerializableObject <|-- Timeline
 
 Timeline *-- "tracks" Stack
 
@@ -310,17 +376,14 @@ The timing model of a `Stack` object is illustrated below.
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
-
-abstract class Composition
 
 Composition <|-- Stack
 
 class Stack {
   composition_kind() : CompositionKind
 }
-
-class Timeline
 
 Stack --* Timeline
 
@@ -379,6 +442,7 @@ The timing model of a `Track` object is illustrated below.
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
 Composition <|-- Track
@@ -458,6 +522,7 @@ A `Composable` object defines a media timeline over a temporal range.
 @startuml
 skinparam classAttributeIconSize 0
 hide empty members
+hide circle
 
 abstract class Composable {
   --
@@ -466,7 +531,7 @@ abstract class Composable {
   {abstract} range() : TimeRange
 }
 
-abstract class Composition
+SerializableObject <|-- Composable
 
 Composable --* "parent\r0..1" Composition
 Composable -- "previous \r0..1" Composable
@@ -533,6 +598,7 @@ An `Item` object positions media on a media timeline. It can also hold effects (
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 skinparam linetype ortho
 
@@ -618,11 +684,14 @@ This class represents an effect applied to its parent `Item`.
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
 class Effect {
   effect_name : String = ""
 }
+
+SerializableObject <|-- Effect
 
 @enduml
 ```
@@ -674,11 +743,10 @@ Parent class for `Effect` objects that manipulate time.
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
 class TimeEffect
-
-class Effect
 
 Effect <|-- TimeEffect
 
@@ -709,10 +777,9 @@ A time warp that applies a linear scale across the entire parent `Item`.
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 skinparam linetype ortho
-
-class TimeEffect
 
 TimeEffect <|-- LinearTimeWarp
 
@@ -761,10 +828,9 @@ This effect holds the first frame of the item for the duration of the parent `It
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 skinparam linetype ortho
-
-class LinearTimeWarp
 
 LinearTimeWarp <|-- FreezeFrame
 
@@ -811,12 +877,15 @@ This class holds metadata over time on a timeline.
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
-abstract class Marker {
+class Marker {
   marked_range: TimeRange = TimeRange()
   color: MarkerColor = GREEN
 }
+
+SerializableObject <|-- Marker
 
 enum MarkerColor {
     PINK
@@ -921,12 +990,13 @@ _NOTE_: Coterminous means that the two intervals overlap from start to end.
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 skinparam linetype ortho
 
 Composable <|-- Transition
 
-abstract class Transition {
+class Transition {
   in_offset: RationalTime
   out_offset: RationalTime
   transition_type: String = ""
@@ -1017,9 +1087,8 @@ This class represents the absence of media.
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
-
-abstract Item
 
 Item <|-- Gap
 
@@ -1093,10 +1162,8 @@ A temporal offset `t` in the object timeline corresponds to the temporal offset 
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
-
-abstract Item
-abstract MediaReference
 
 Item <|-- Clip
 
@@ -1162,6 +1229,7 @@ This class identifies media to be placed on the timeline.
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
 abstract class MediaReference {
@@ -1169,6 +1237,8 @@ abstract class MediaReference {
   --
   is_missing_reference() : Boolean
 }
+
+SerializableObject <|-- MediaReference
 
 @enduml
 ```
@@ -1210,9 +1280,8 @@ Reference to media via a URI.
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
-
-abstract class MediaReference
 
 MediaReference <|-- ExternalReference
 
@@ -1259,9 +1328,8 @@ Generators are media references that become "generators" in editorial systems.  
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
-
-abstract class MediaReference
 
 MediaReference <|-- GeneratorReference
 
@@ -1316,9 +1384,8 @@ This class represents media for which a concrete reference is missing.
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
-
-abstract class MediaReference
 
 MediaReference <|-- MissingReference
 
@@ -1364,9 +1431,8 @@ This class represents media that consist of a sequence of images, each reference
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
-
-abstract class MediaReference
 
 MediaReference <|-- ImageSequenceReference
 
@@ -1466,6 +1532,7 @@ A `Composition` object arranges children `Composable` objects onto its timeline.
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
 Item <|-- Composition
@@ -1577,6 +1644,7 @@ _NOTE_: This method return the temporal offsets within the object's timeline whe
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
 class ActiveComposable <<datatype>> {
@@ -1596,6 +1664,7 @@ Indicates that the `Composable` object at `self.composable` is active at offset 
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
 class RationalTime <<datatype>> {
@@ -1639,6 +1708,7 @@ Temporal value equal to the product of `value` and `rate`.
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
 class Boolean <<datatype>>
@@ -1659,6 +1729,7 @@ UTF-8 string.
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
 class String <<datatype>>
@@ -1686,6 +1757,7 @@ The value `null` exists for compatibility with legacy files and should not be wr
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
 class URI <<datatype>> {
@@ -1720,6 +1792,7 @@ The `URI()` constructor initializes the URI to an empty relative reference (`""`
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
 class Integer <<datatype>>
@@ -1751,6 +1824,7 @@ Integer in the range [- 2<sup>63</sup>, 2<sup>63</sup> - 1].
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
 class Float <<datatype>>
@@ -1786,6 +1860,7 @@ A JSON Object as defined at www.json.org.
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
 class JSONObject <<datatype>> {
@@ -1814,6 +1889,7 @@ The `JSONObject()` constructor initializes the instance to an empty object.
 ```puml
 @startuml
 hide empty members
+hide circle
 skinparam classAttributeIconSize 0
 
 class TimeRange <<datatype>> {
