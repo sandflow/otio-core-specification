@@ -30,7 +30,6 @@ class Timeline [[#object-model-Timeline]]
 class Clip [[#object-model-Clip]]
 class Gap [[#object-model-Gap]]
 
-
 class Composition [[#object-model-Composition]]
 class Composable [[#object-model-Composable]]
 
@@ -163,6 +162,39 @@ note on link: ConcreteParent derives from AbstractClass
 The key words MAY, SHALL, SHALL NOT, SHOULD, and SHOULD NOT in this document are to be interpreted as described in IETF BCP 14.
 
 ## Object Model
+
+### General
+
+This version of the document specifies a single version of the abstract OTIO object model, which consists of the unique set of class
+and data type definitions specified herein.
+
+Any modification to the requirements associated with these definitions results in a different version of the data model.
+
+Each concrete representation of a particular version of the OTIO object model is called a serialization, and each serialization
+shall specify a mechanism by which the version of the data model is signalled.
+
+### JSON Serialization
+
+This document specifies a serialization using the [JSON interchange format](https://json.org). Other serializations may exist.
+
+In this serialization:
+
+* each descendent of the [`SerializableObject`](#object-model-SerializableObject) includes a `OTIO_SCHEMA` property, which is
+  altered whenever any requirements associated with a class is modified or added -- allowing an implementation to infer the version of the
+  object model;
+
+* the serialization for both current and past versions of classes is specified; and
+
+* the process by which the serialization of an earlier version of a class is converted to a current version of the class is
+  specified.
+
+Implementations shall accept the serialization of all versions of the data model specified herein.
+
+Implementation should create a serialization of the current version of the data model unless:
+
+* compatibility with legacy implementations is required, in which case earlier version of a class may be serialized; or
+
+* the specification explicitly forbids the serialization to an earlier version of a class.
 
 ### SerializableObject {#object-model-SerializableObject}
 
