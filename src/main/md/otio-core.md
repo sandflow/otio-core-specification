@@ -30,12 +30,12 @@ class Timeline [[#object-model-Timeline]]
 class Clip [[#object-model-Clip]]
 class Gap [[#object-model-Gap]]
 
-class Composition [[#object-model-Composition]]
-class Composable [[#object-model-Composable]]
+abstract class Composition [[#object-model-Composition]]
+abstract class Composable [[#object-model-Composable]]
 
 together {
   class Transition [[#object-model-Transition]]
-  class Item [[#object-model-Item]]
+  abstract class Item [[#object-model-Item]]
 }
 
 
@@ -45,7 +45,7 @@ class Marker [[#object-model-Marker]]
 
 class Stack [[#object-model-Stack]]
 class Track [[#object-model-Track]]
-class MediaReference [[#object-model-MediaReference]]
+abstract class MediaReference [[#object-model-MediaReference]]
 
 Timeline *-- Stack
 
@@ -183,6 +183,8 @@ In this serialization:
   altered whenever any requirements associated with a class is modified or added -- allowing an implementation to infer the version of the
   object model;
 
+* abstract classes cannot be serialized and no schema definitions exist for them;
+
 * the serialization for both current and past versions of classes is specified; and
 
 * the process by which the serialization of an earlier version of a class is converted to a current version of the class is
@@ -212,7 +214,7 @@ hide empty members
 hide circle
 skinparam classAttributeIconSize 0
 
-class SerializableObject {
+abstract class SerializableObject {
   name: String = ""
   metadata : JSONObject = JSONObject()
 }
@@ -497,7 +499,7 @@ The following are two values are defined:
 * `"Video"`
 * `"Audio"`
 
-_EDITOR'S NOTE_: is a `track` always have only of a single kind?
+_EDITOR'S NOTE_: is a `track` always of a single kind?
 
 ##### composition_kind()
 
@@ -759,6 +761,19 @@ _EXAMPLE 2_: Example values include: `"Blur"`, `"Crop"`, `"Flip"`.
 ```json
 "Effect": {
   "anyOf" : [
+    {
+      "type": "object",
+      "properties" : {
+        "OTIO_SCHEMA" : {
+          "const": "Effect.1"
+        },
+        "name" : { "$ref": "#/definitions/NullableString" },
+        "metadata" : { "$ref": "#/definitions/JSONObject" },
+        "effect_name" : { "$ref": "#/definitions/NullableString" }
+      },
+      "require" : ["OTIO_SCHEMA"],
+      "additionalProperties": false
+    },
     { "$ref": "#/definitions/TimeEffect" }
   ]
 }
@@ -790,6 +805,19 @@ Effect <|-- TimeEffect
 ```json
 "TimeEffect": {
   "anyOf" : [
+    {
+      "type": "object",
+      "properties" : {
+        "OTIO_SCHEMA" : {
+          "const": "TimeEffect.1"
+        },
+        "name" : { "$ref": "#/definitions/NullableString" },
+        "metadata" : { "$ref": "#/definitions/JSONObject" },
+        "effect_name" : { "$ref": "#/definitions/NullableString" }
+      },
+      "require" : ["OTIO_SCHEMA"],
+      "additionalProperties": false
+    },
     { "$ref": "#/definitions/FreezeFrame" },
     { "$ref": "#/definitions/LinearTimeWarp" }
   ]
