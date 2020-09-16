@@ -1859,11 +1859,15 @@ class MetadataNullValue <<datatype>>
 
 A `MetadataObject` instance is serialized as a single `object` as defined at www.json.org.
 
-A processor shall interpret a `number` value as specified in the first matching rule of the following list:
+A processor shall read a JSON `number` value according to the first matching rule of the following list:
 
 * as specified by the data model specified herein if it is a descendent of an instance of [`SerializableObject`](#object-model-SerializableObject); or
 * as a `MetadataIntegerValue` if the value includes neither a fraction (`.`) nor an exponent (`e|E`) delimiter; or
 * as a `MetadataDoubleValue` otherwise.
+
+A processor shall write an `Integer` value as a JSON `number` with neither a fraction (`.`) nor an exponent (`e|E`) delimiter.
+
+A processor shall write a `Double` value as a JSON `number` with at least one fraction (`.`) or one exponent (`e|E`) delimiter.
 
 ### TimeRange
 
