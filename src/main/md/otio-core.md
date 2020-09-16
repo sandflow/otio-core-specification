@@ -1779,17 +1779,10 @@ Double (binary64) floating point number as defined in IEEE 754.
 
 #### General
 
-A `MetadataObject` instance represents a single `object` as defined at www.json.org.
-
-A `MetadataObject` instance and any of its descendent `object` values may be an instance of
+A `MetadataObject` is a container of name-value pairs and can contain instances of
 [`SerializableObject`](#object-model-SerializableObject).
 
 _EXAMPLE_: A `MetadataObject` instance can contain `RationalTime` and `TimeRange` instances.
-
-#### Processing
-
-Unless it is a descendent of an instance of [`SerializableObject`](#object-model-SerializableObject), a processor shall interpret a
-`number` value as a [`Double`](#object-model-Double).
 
 #### Model
 
@@ -1798,14 +1791,63 @@ Unless it is a descendent of an instance of [`SerializableObject`](#object-model
 hide empty members
 skinparam classAttributeIconSize 0
 
+abstract class MetadataValue <<datatype>>
+
+MetadataValue <|-- MetadataObject
+
 class MetadataObject <<datatype>> {
-  MetadataObject()
+  value: NameValuePair[0..*] = []
 }
+
+class NameValuePair <<datatype>> {
+  name: String
+  value: MetadataValue
+}
+
+MetadataValue <|-- MetadataSerializableObjectValue
+
+class MetadataSerializableObjectValue <<datatype>> {
+  value: SerializableObject
+}
+
+MetadataValue <|-- MetadataStringValue
+
+class MetadataStringValue <<datatype>> {
+  value: String[1]
+}
+
+MetadataValue <|-- MetadataArrayValue
+
+class MetadataArrayValue <<datatype>> {
+  value: MetadataValue[0..*]
+}
+
+MetadataValue <|-- MetadataDoubleValue
+
+class MetadataDoubleValue <<datatype>> {
+  value: Double[1]
+}
+
+MetadataValue <|-- MetadataIntegerValue
+
+class MetadataIntegerValue <<datatype>> {
+  value: Integer[1]
+}
+
+MetadataValue <|-- MetadataTrueValue
+
+class MetadataTrueValue <<datatype>>
+
+MetadataValue <|-- MetadataFalseValue
+
+class MetadataFalseValue <<datatype>>
+
+MetadataValue <|-- MetadataNullValue
+
+class MetadataNullValue <<datatype>>
 
 @enduml
 ```
-
-The `MetadataObject()` constructor initializes the instance to an empty object.
 
 #### JSON Schema
 
@@ -1814,6 +1856,14 @@ The `MetadataObject()` constructor initializes the instance to an empty object.
     "type" : "object"
   }
 ```
+
+A `MetadataObject` instance is serialized as a single `object` as defined at www.json.org.
+
+A processor shall interpret a `number` value as specified in the first matching rule of the following list:
+
+* as specified by the data model specified herein if it is a descendent of an instance of [`SerializableObject`](#object-model-SerializableObject); or
+* as a `MetadataIntegerValue` if the value includes neither a fraction (`.`) nor an exponent (`e|E`) delimiter; or
+* as a `MetadataDoubleValue` otherwise.
 
 ### TimeRange
 
