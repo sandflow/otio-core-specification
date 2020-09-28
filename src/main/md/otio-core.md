@@ -768,7 +768,7 @@ _EXAMPLE 2_: Example values include: `"Blur"`, `"Crop"`, `"Flip"`.
           "const": "Effect.1"
         },
         "name" : { "$ref": "#/definitions/NullableString" },
-        "metadata" : { "$ref": "#/definitions/JSONObject" },
+        "metadata" : { "$ref": "#/definitions/MetadataObject" },
         "effect_name" : { "$ref": "#/definitions/NullableString" }
       },
       "require" : ["OTIO_SCHEMA"],
@@ -812,7 +812,7 @@ Effect <|-- TimeEffect
           "const": "TimeEffect.1"
         },
         "name" : { "$ref": "#/definitions/NullableString" },
-        "metadata" : { "$ref": "#/definitions/JSONObject" },
+        "metadata" : { "$ref": "#/definitions/MetadataObject" },
         "effect_name" : { "$ref": "#/definitions/NullableString" }
       },
       "require" : ["OTIO_SCHEMA"],
