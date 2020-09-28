@@ -216,7 +216,7 @@ skinparam classAttributeIconSize 0
 
 abstract class SerializableObject {
   name: String = ""
-  metadata : JSONObject = JSONObject()
+  metadata : MetadataObject = MetadataObject()
 }
 
 @enduml
@@ -297,7 +297,7 @@ This property defines the timeline of the object.
       ]
     },
     "name" : { "$ref": "#/definitions/NullableString" },
-    "metadata" : { "$ref": "#/definitions/JSONObject" },
+    "metadata" : { "$ref": "#/definitions/MetadataObject" },
     "children" : {
       "type" : "array",
       "items" : { "$ref": "#/definitions/SerializableObject" }
@@ -378,7 +378,7 @@ This method returns `tracks.activeDescendants(offset)`;
       "const": "Timeline.1"
     },
     "name" : { "$ref": "#/definitions/NullableString" },
-    "metadata" : { "$ref": "#/definitions/JSONObject" },
+    "metadata" : { "$ref": "#/definitions/MetadataObject" },
     "global_start_time" : { "$ref": "#/definitions/NullableRationalTime" },
     "tracks" : { "$ref": "#/definitions/Stack" }
   },
@@ -438,7 +438,7 @@ The method returns `CompositionKind::Stack`.
       "const": "Stack.1"
     },
     "name" : { "$ref": "#/definitions/NullableString" },
-    "metadata" : { "$ref": "#/definitions/JSONObject" },
+    "metadata" : { "$ref": "#/definitions/MetadataObject" },
     "source_range" : { "$ref": "#/definitions/TimeRange" },
     "markers" : {
       "type" : "array",
@@ -521,7 +521,7 @@ The method returns `CompositionKind::Track`.
       ]
     },
     "name" : { "$ref": "#/definitions/NullableString" },
-    "metadata" : { "$ref": "#/definitions/JSONObject" },
+    "metadata" : { "$ref": "#/definitions/MetadataObject" },
     "source_range" : {"$ref": "#/definitions/TimeRange"},
     "markers" : {
       "type" : "array",
@@ -844,7 +844,7 @@ skinparam linetype ortho
 TimeEffect <|-- LinearTimeWarp
 
 class LinearTimeWarp {
-  time_scalar: Float = 1
+  time_scalar: Double = 1
 }
 
 @enduml
@@ -866,9 +866,9 @@ _EXAMPLE_: `timescalar = 2.0` means double speed, and `timescalar = 0.5` means h
       "const": "LinearTimeWarp.1"
     },
     "name" : { "$ref": "#/definitions/NullableString" },
-    "metadata" : { "$ref": "#/definitions/JSONObject" },
+    "metadata" : { "$ref": "#/definitions/MetadataObject" },
     "effect_name" : { "$ref": "#/definitions/NullableString" },
-    "time_scalar" : { "$ref": "#/definitions/NullableFloat" }
+    "time_scalar" : { "$ref": "#/definitions/NullableDouble" }
   },
   "require" : ["OTIO_SCHEMA"],
   "additionalProperties": false
@@ -895,7 +895,7 @@ skinparam linetype ortho
 LinearTimeWarp <|-- FreezeFrame
 
 class FreezeFrame {
-  /time_scalar: Float = 0
+  /time_scalar: Double = 0
 }
 
 @enduml
@@ -915,7 +915,7 @@ The property shall be equal to 0.
       "const": "FreezeFrame.1"
     },
     "name" : { "$ref": "#/definitions/NullableString" },
-    "metadata" : { "$ref": "#/definitions/JSONObject" },
+    "metadata" : { "$ref": "#/definitions/MetadataObject" },
     "effect_name" : { "$ref": "#/definitions/NullableString" },
     "time_scalar" : { "const": 0 }
   },
@@ -995,7 +995,7 @@ Color of the `Marker` object.
       "const": "Marker.2"
     },
     "name" : { "$ref": "#/definitions/NullableString" },
-    "metadata" : { "$ref": "#/definitions/JSONObject" },
+    "metadata" : { "$ref": "#/definitions/MetadataObject" },
     "marked_range" : { "$ref": "#/definitions/TimeRange" },
     "color" : {
       "type": "string",
@@ -1016,7 +1016,7 @@ Color of the `Marker` object.
       "const": "Marker.1"
     },
     "name" : { "$ref": "#/definitions/NullableString" },
-    "metadata" : { "$ref": "#/definitions/JSONObject" },
+    "metadata" : { "$ref": "#/definitions/MetadataObject" },
     "range" : { "$ref": "#/definitions/TimeRange" },
     "color" : {
       "type": "string",
@@ -1060,7 +1060,7 @@ class Transition {
   in_offset: RationalTime
   out_offset: RationalTime
   transition_type: String = ""
-  parameters: JSONObject = JSONObject()
+  parameters: MetadataObject = MetadataObject()
   --
   overlapping(): Boolean
   range() : RationalTime
@@ -1121,7 +1121,7 @@ This method returns the interval `[0, self.out_offset + self.in_offset)`.
       "const": "Transition.1"
     },
     "name" : { "$ref": "#/definitions/NullableString" },
-    "metadata" : { "$ref": "#/definitions/JSONObject" },
+    "metadata" : { "$ref": "#/definitions/MetadataObject" },
     "in_offset" : { "$ref": "#/definitions/NullableRationalTime" },
     "out_offset" : { "$ref": "#/definitions/NullableRationalTime" },
     "transition_type" : { "$ref": "#/definitions/NullableString" },
@@ -1190,7 +1190,7 @@ The method returns the interval `[0, duration)`.
       ]
     },
     "name" : { "$ref": "#/definitions/NullableString" },
-    "metadata" : { "$ref": "#/definitions/JSONObject" },
+    "metadata" : { "$ref": "#/definitions/MetadataObject" },
     "markers" : {
       "type" : "array",
       "items" : {"$ref": "#/definitions/Marker"}
@@ -1259,7 +1259,7 @@ This property references the media associated with the object.
       "const": "Clip.1"
     },
     "name" : { "$ref": "#/definitions/NullableString" },
-    "metadata" : { "$ref": "#/definitions/JSONObject" },
+    "metadata" : { "$ref": "#/definitions/MetadataObject" },
     "markers" : {
       "type" : "array",
       "items" : {"$ref": "#/definitions/Marker"}
@@ -1366,7 +1366,7 @@ This property is a URI to the media.
       "const": "ExternalReference.1"
     },
     "name" : { "$ref": "#/definitions/NullableString" },
-    "metadata" : { "$ref": "#/definitions/JSONObject" },
+    "metadata" : { "$ref": "#/definitions/MetadataObject" },
     "available_range" : { "$ref": "#/definitions/TimeRange" },
     "target_url" : { "$ref": "#/definitions/NullableURI" }
   },
@@ -1395,7 +1395,7 @@ MediaReference <|-- GeneratorReference
 
 class GeneratorReference {
   generator_kind: String = ""
-  parameters: JSONObject = JSONObject()
+  parameters: MetadataObject = MetadataObject()
 }
 
 @enduml
@@ -1419,7 +1419,7 @@ This property specifies parameters to be provided to the generator.
       "const": "GeneratorReference.1"
     },
     "name" : { "$ref": "#/definitions/NullableString" },
-    "metadata" : { "$ref": "#/definitions/JSONObject" },
+    "metadata" : { "$ref": "#/definitions/MetadataObject" },
     "generator_kind" : { "$ref": "#/definitions/NullableString" },
     "available_range" : { "$ref": "#/definitions/TimeRange" },
     "parameters" : {
@@ -1470,7 +1470,7 @@ This method returns `true`.
       "const": "MissingReference.1"
     },
     "name" : { "$ref": "#/definitions/NullableString" },
-    "metadata" : { "$ref": "#/definitions/JSONObject" },
+    "metadata" : { "$ref": "#/definitions/MetadataObject" },
     "available_range" : { "$ref": "#/definitions/TimeRange" }
   },
   "required" : ["OTIO_SCHEMA"],
@@ -1502,7 +1502,7 @@ class ImageSequenceReference {
   name_suffix: String = ""
   start_frame: Integer = 1
   frame_step: Integer = 1
-  rate: Float = 1
+  rate: Double = 1
   frame_zero_padding: Integer = 0
   missing_frame_policy: MissingFramePolicy = error
 }
@@ -1560,14 +1560,14 @@ This property allows hinting about how a consuming app should behave if an image
       "const": "ImageSequenceReference.1"
     },
     "name" : { "$ref": "#/definitions/NullableString" },
-    "metadata" : { "$ref": "#/definitions/JSONObject" },
+    "metadata" : { "$ref": "#/definitions/MetadataObject" },
     "available_range" : { "$ref": "#/definitions/TimeRange" },
     "target_url_base" : { "$ref": "#/definitions/NullableURI" },
     "name_prefix" : { "$ref": "#/definitions/NullableString" },
     "name_suffix" : { "$ref": "#/definitions/NullableString" },
     "start_frame" : { "$ref": "#/definitions/NullableInteger" },
     "frame_step" : { "$ref": "#/definitions/NullableInteger" },
-    "rate" : { "$ref": "#/definitions/NullableFloat" },
+    "rate" : { "$ref": "#/definitions/NullableDouble" },
     "frame_zero_padding" : { "$ref": "#/definitions/NullableInteger" },
     "missing_frame_policy" : {
       "type": "string",
@@ -1728,8 +1728,8 @@ hide circle
 skinparam classAttributeIconSize 0
 
 class RationalTime <<datatype>> {
-  value : Float = 0
-  rate : Float = 1
+  value : Double = 0
+  rate : Double = 1
 }
 
 @enduml
@@ -1746,8 +1746,8 @@ Temporal value equal to the product of `value` and `rate`.
     "OTIO_SCHEMA" : {
       "const": "RationalTime.1"
     },
-    "rate" : { "$ref": "#/definitions/NullableFloat" },
-    "value" : { "$ref": "#/definitions/NullableFloat" }
+    "rate" : { "$ref": "#/definitions/NullableDouble" },
+    "value" : { "$ref": "#/definitions/NullableDouble" }
   },
   "required" : ["OTIO_SCHEMA"],
   "additionalProperties": false
@@ -1877,7 +1877,7 @@ Integer in the range [- 2<sup>63</sup>, 2<sup>63</sup> - 1].
   }
 ```
 
-### Float
+### Double {#object-model-Double}
 
 #### Model
 
@@ -1887,7 +1887,7 @@ hide empty members
 hide circle
 skinparam classAttributeIconSize 0
 
-class Float <<datatype>>
+class Double <<datatype>>
 
 @enduml
 ```
@@ -1897,7 +1897,7 @@ Double (binary64) floating point number as defined in IEEE 754.
 #### JSON Schema
 
 ```json
-  "NullableFloat" : {
+  "NullableDouble" : {
     "anyOf" : [
       {
         "type": "number"
@@ -1909,11 +1909,14 @@ Double (binary64) floating point number as defined in IEEE 754.
   }
 ```
 
-### JSONObject
+### MetadataObject
 
 #### General
 
-A JSON Object as defined at www.json.org.
+A `MetadataObject` is a container of name-value pairs and can contain instances of
+[`SerializableObject`](#object-model-SerializableObject).
+
+_EXAMPLE_: A `MetadataObject` instance can contain `RationalTime` and `TimeRange` instances.
 
 #### Model
 
@@ -1923,22 +1926,83 @@ hide empty members
 hide circle
 skinparam classAttributeIconSize 0
 
-class JSONObject <<datatype>> {
-  JSONObject()
+abstract class MetadataValue <<datatype>>
+
+MetadataValue <|-- MetadataObject
+
+class MetadataObject <<datatype>> {
+  value: NameValuePair[0..*] = []
 }
+
+class NameValuePair <<datatype>> {
+  name: String
+  value: MetadataValue
+}
+
+MetadataValue <|-- MetadataSerializableObjectValue
+
+class MetadataSerializableObjectValue <<datatype>> {
+  value: SerializableObject
+}
+
+MetadataValue <|-- MetadataStringValue
+
+class MetadataStringValue <<datatype>> {
+  value: String[1]
+}
+
+MetadataValue <|-- MetadataArrayValue
+
+class MetadataArrayValue <<datatype>> {
+  value: MetadataValue[0..*]
+}
+
+MetadataValue <|-- MetadataDoubleValue
+
+class MetadataDoubleValue <<datatype>> {
+  value: Double[1]
+}
+
+MetadataValue <|-- MetadataIntegerValue
+
+class MetadataIntegerValue <<datatype>> {
+  value: Integer[1]
+}
+
+MetadataValue <|-- MetadataTrueValue
+
+class MetadataTrueValue <<datatype>>
+
+MetadataValue <|-- MetadataFalseValue
+
+class MetadataFalseValue <<datatype>>
+
+MetadataValue <|-- MetadataNullValue
+
+class MetadataNullValue <<datatype>>
 
 @enduml
 ```
 
-The `JSONObject()` constructor initializes the instance to an empty object.
-
 #### JSON Schema
 
 ```json
-  "JSONObject" : {
+  "MetadataObject" : {
     "type" : "object"
   }
 ```
+
+A `MetadataObject` instance is serialized as a single `object` as defined at www.json.org.
+
+A processor shall read a JSON `number` value according to the first matching rule of the following list:
+
+* as specified by the data model specified herein if it is a descendent of an instance of [`SerializableObject`](#object-model-SerializableObject); or
+* as a `MetadataIntegerValue` if the value includes neither a fraction (`.`) nor an exponent (`e|E`) delimiter; or
+* as a `MetadataDoubleValue` otherwise.
+
+A processor shall write an `Integer` value as a JSON `number` with neither a fraction (`.`) nor an exponent (`e|E`) delimiter.
+
+A processor shall write a `Double` value as a JSON `number` with at least one fraction (`.`) or one exponent (`e|E`) delimiter.
 
 ### TimeRange
 
@@ -1985,7 +2049,7 @@ This constructor executes the following:
 
 This method returns `self.end - self.start`.
 
-### JSON Schema
+#### JSON Schema
 
 ```json
   "TimeRange" : {
