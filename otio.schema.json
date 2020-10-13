@@ -1,0 +1,751 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Schema for the OpenTimelineIO interchange format",
+  "$ref": "#/definitions/SerializableObject",
+  "definitions": {
+    "SerializableObject": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Composable"
+        },
+        {
+          "$ref": "#/definitions/Marker"
+        },
+        {
+          "$ref": "#/definitions/Effect"
+        },
+        {
+          "$ref": "#/definitions/MediaReference"
+        },
+        {
+          "$ref": "#/definitions/Timeline"
+        },
+        {
+          "$ref": "#/definitions/SerializableCollection"
+        }
+      ]
+    },
+    "SerializableCollection": {
+      "type": "object",
+      "properties": {
+        "OTIO_SCHEMA": {
+          "anyOf": [
+            {
+              "const": "SerializableCollection.1"
+            },
+            {
+              "const": "SerializeableCollection.1",
+              "deprecated": true
+            }
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataObject"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SerializableObject"
+          }
+        }
+      },
+      "required": [
+        "OTIO_SCHEMA"
+      ],
+      "additionalProperties": false
+    },
+    "Timeline": {
+      "type": "object",
+      "properties": {
+        "OTIO_SCHEMA": {
+          "const": "Timeline.1"
+        },
+        "name": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataObject"
+        },
+        "global_start_time": {
+          "$ref": "#/definitions/NullableRationalTime"
+        },
+        "tracks": {
+          "$ref": "#/definitions/Stack"
+        }
+      },
+      "required": [
+        "OTIO_SCHEMA"
+      ],
+      "additionalProperties": false
+    },
+    "Stack": {
+      "type": "object",
+      "properties": {
+        "OTIO_SCHEMA": {
+          "const": "Stack.1"
+        },
+        "name": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataObject"
+        },
+        "source_range": {
+          "$ref": "#/definitions/TimeRange"
+        },
+        "markers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Marker"
+          }
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Effect"
+          }
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Composable"
+          }
+        }
+      },
+      "required": [
+        "OTIO_SCHEMA"
+      ]
+    },
+    "Track": {
+      "type": "object",
+      "properties": {
+        "OTIO_SCHEMA": {
+          "anyOf": [
+            {
+              "const": "Track.1"
+            },
+            {
+              "const": "Sequence.1",
+              "deprecated": true
+            }
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataObject"
+        },
+        "source_range": {
+          "$ref": "#/definitions/TimeRange"
+        },
+        "markers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Marker"
+          }
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Effect"
+          }
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Composable"
+          }
+        },
+        "kind": {
+          "$ref": "#/definitions/NullableString"
+        }
+      },
+      "required": [
+        "OTIO_SCHEMA",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "Composable": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Transition"
+        },
+        {
+          "$ref": "#/definitions/Item"
+        }
+      ]
+    },
+    "Item": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Gap"
+        },
+        {
+          "$ref": "#/definitions/Clip"
+        },
+        {
+          "$ref": "#/definitions/Composition"
+        }
+      ]
+    },
+    "Effect": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "OTIO_SCHEMA": {
+              "const": "Effect.1"
+            },
+            "name": {
+              "$ref": "#/definitions/NullableString"
+            },
+            "metadata": {
+              "$ref": "#/definitions/MetadataObject"
+            },
+            "effect_name": {
+              "$ref": "#/definitions/NullableString"
+            }
+          },
+          "require": [
+            "OTIO_SCHEMA"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "$ref": "#/definitions/TimeEffect"
+        }
+      ]
+    },
+    "TimeEffect": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "OTIO_SCHEMA": {
+              "const": "TimeEffect.1"
+            },
+            "name": {
+              "$ref": "#/definitions/NullableString"
+            },
+            "metadata": {
+              "$ref": "#/definitions/MetadataObject"
+            },
+            "effect_name": {
+              "$ref": "#/definitions/NullableString"
+            }
+          },
+          "require": [
+            "OTIO_SCHEMA"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "$ref": "#/definitions/FreezeFrame"
+        },
+        {
+          "$ref": "#/definitions/LinearTimeWarp"
+        }
+      ]
+    },
+    "LinearTimeWarp": {
+      "type": "object",
+      "properties": {
+        "OTIO_SCHEMA": {
+          "const": "LinearTimeWarp.1"
+        },
+        "name": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataObject"
+        },
+        "effect_name": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "time_scalar": {
+          "$ref": "#/definitions/NullableDouble"
+        }
+      },
+      "require": [
+        "OTIO_SCHEMA"
+      ],
+      "additionalProperties": false
+    },
+    "FreezeFrame": {
+      "type": "object",
+      "properties": {
+        "OTIO_SCHEMA": {
+          "const": "FreezeFrame.1"
+        },
+        "name": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataObject"
+        },
+        "effect_name": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "time_scalar": {
+          "const": 0
+        }
+      },
+      "required": [
+        "OTIO_SCHEMA"
+      ],
+      "additionalProperties": false
+    },
+    "Marker": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Marker.1"
+        },
+        {
+          "$ref": "#/definitions/Marker.2"
+        }
+      ]
+    },
+    "Marker.2": {
+      "type": "object",
+      "properties": {
+        "OTIO_SCHEMA": {
+          "const": "Marker.2"
+        },
+        "name": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataObject"
+        },
+        "marked_range": {
+          "$ref": "#/definitions/TimeRange"
+        },
+        "color": {
+          "type": "string",
+          "enum": [
+            "PINK",
+            "RED",
+            "ORANGE",
+            "YELLOW",
+            "GREEN",
+            "CYAN",
+            "BLUE",
+            "PURPLE",
+            "MAGENTA",
+            "BLACK",
+            "WHITE"
+          ]
+        }
+      },
+      "required": [
+        "OTIO_SCHEMA"
+      ],
+      "additionalProperties": false
+    },
+    "Marker.1": {
+      "deprecated": true,
+      "type": "object",
+      "properties": {
+        "OTIO_SCHEMA": {
+          "const": "Marker.1"
+        },
+        "name": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataObject"
+        },
+        "range": {
+          "$ref": "#/definitions/TimeRange"
+        },
+        "color": {
+          "type": "string",
+          "enum": [
+            "PINK",
+            "RED",
+            "ORANGE",
+            "YELLOW",
+            "GREEN",
+            "CYAN",
+            "BLUE",
+            "PURPLE",
+            "MAGENTA",
+            "BLACK",
+            "WHITE"
+          ]
+        }
+      },
+      "required": [
+        "OTIO_SCHEMA"
+      ],
+      "additionalProperties": false
+    },
+    "Transition": {
+      "type": "object",
+      "properties": {
+        "OTIO_SCHEMA": {
+          "const": "Transition.1"
+        },
+        "name": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataObject"
+        },
+        "in_offset": {
+          "$ref": "#/definitions/NullableRationalTime"
+        },
+        "out_offset": {
+          "$ref": "#/definitions/NullableRationalTime"
+        },
+        "transition_type": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "parameters": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "OTIO_SCHEMA",
+        "transition_type"
+      ],
+      "additionalProperties": false
+    },
+    "Gap": {
+      "type": "object",
+      "properties": {
+        "OTIO_SCHEMA": {
+          "anyOf": [
+            {
+              "const": "Gap.1"
+            },
+            {
+              "const": "Filler.1",
+              "deprecated": true
+            }
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataObject"
+        },
+        "markers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Marker"
+          }
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Effect"
+          }
+        },
+        "source_range": {
+          "$ref": "#/definitions/TimeRange"
+        },
+        "duration": {
+          "$ref": "#/definitions/NullableRationalTime"
+        }
+      },
+      "required": [
+        "OTIO_SCHEMA"
+      ],
+      "additionalProperties": false
+    },
+    "Clip": {
+      "type": "object",
+      "properties": {
+        "OTIO_SCHEMA": {
+          "const": "Clip.1"
+        },
+        "name": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataObject"
+        },
+        "markers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Marker"
+          }
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Effect"
+          }
+        },
+        "source_range": {
+          "$ref": "#/definitions/TimeRange"
+        },
+        "media_reference": {
+          "$ref": "#/definitions/MediaReference"
+        }
+      },
+      "required": [
+        "OTIO_SCHEMA"
+      ],
+      "additionalProperties": false
+    },
+    "MediaReference": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/MissingReference"
+        },
+        {
+          "$ref": "#/definitions/ExternalReference"
+        },
+        {
+          "$ref": "#/definitions/GeneratorReference"
+        },
+        {
+          "$ref": "#/definitions/ImageSequenceReference"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ExternalReference": {
+      "type": "object",
+      "properties": {
+        "OTIO_SCHEMA": {
+          "const": "ExternalReference.1"
+        },
+        "name": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataObject"
+        },
+        "available_range": {
+          "$ref": "#/definitions/TimeRange"
+        },
+        "target_url": {
+          "$ref": "#/definitions/NullableURI"
+        }
+      },
+      "required": [
+        "OTIO_SCHEMA",
+        "available_range",
+        "target_url"
+      ],
+      "additionalProperties": false
+    },
+    "GeneratorReference": {
+      "type": "object",
+      "properties": {
+        "OTIO_SCHEMA": {
+          "const": "GeneratorReference.1"
+        },
+        "name": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataObject"
+        },
+        "generator_kind": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "available_range": {
+          "$ref": "#/definitions/TimeRange"
+        },
+        "parameters": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "OTIO_SCHEMA",
+        "generator_kind"
+      ],
+      "additionalProperties": false
+    },
+    "MissingReference": {
+      "type": "object",
+      "properties": {
+        "OTIO_SCHEMA": {
+          "const": "MissingReference.1"
+        },
+        "name": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataObject"
+        },
+        "available_range": {
+          "$ref": "#/definitions/TimeRange"
+        }
+      },
+      "required": [
+        "OTIO_SCHEMA"
+      ],
+      "additionalProperties": false
+    },
+    "ImageSequenceReference": {
+      "type": "object",
+      "properties": {
+        "OTIO_SCHEMA": {
+          "const": "ImageSequenceReference.1"
+        },
+        "name": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataObject"
+        },
+        "available_range": {
+          "$ref": "#/definitions/TimeRange"
+        },
+        "target_url_base": {
+          "$ref": "#/definitions/NullableURI"
+        },
+        "name_prefix": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "name_suffix": {
+          "$ref": "#/definitions/NullableString"
+        },
+        "start_frame": {
+          "$ref": "#/definitions/NullableInteger"
+        },
+        "frame_step": {
+          "$ref": "#/definitions/NullableInteger"
+        },
+        "rate": {
+          "$ref": "#/definitions/NullableDouble"
+        },
+        "frame_zero_padding": {
+          "$ref": "#/definitions/NullableInteger"
+        },
+        "missing_frame_policy": {
+          "type": "string",
+          "enum": [
+            "error",
+            "hold",
+            "black"
+          ]
+        }
+      },
+      "required": [
+        "OTIO_SCHEMA"
+      ],
+      "additionalProperties": false
+    },
+    "Composition": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Track"
+        },
+        {
+          "$ref": "#/definitions/Stack"
+        }
+      ]
+    },
+    "RationalTime": {
+      "type": "object",
+      "properties": {
+        "OTIO_SCHEMA": {
+          "const": "RationalTime.1"
+        },
+        "rate": {
+          "$ref": "#/definitions/NullableDouble"
+        },
+        "value": {
+          "$ref": "#/definitions/NullableDouble"
+        }
+      },
+      "required": [
+        "OTIO_SCHEMA"
+      ],
+      "additionalProperties": false
+    },
+    "NullableRationalTime": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/RationalTime"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "NullableString": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "NullableURI": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "NullableInteger": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "NullableDouble": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "MetadataObject": {
+      "type": "object"
+    },
+    "TimeRange": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "OTIO_SCHEMA": {
+              "const": "TimeRange.1"
+            },
+            "duration": {
+              "$ref": "#/definitions/NullableRationalTime"
+            },
+            "start_time": {
+              "$ref": "#/definitions/NullableRationalTime"
+            }
+          },
+          "required": [
+            "OTIO_SCHEMA"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}
