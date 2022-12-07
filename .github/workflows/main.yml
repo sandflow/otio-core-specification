@@ -1,0 +1,29 @@
+name: Build GH Pages
+
+on:
+  push:
+    branches:
+      - main
+      
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        run: sudo apt-get install graphviz
+        
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        
+      - name: npm deps
+        run: npm install
+        
+      - name: Build doc
+        run: npm run build
+      
+      - name: Deploy to GitHub Pages
+        uses: Cecilapp/GitHub-Pages-deploy@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          build_dir: build
